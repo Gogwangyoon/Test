@@ -4,7 +4,10 @@
     // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
     "version": "0.2.0",
     "configurations": [
+<<<<<<< HEAD
     
+=======
+>>>>>>> 7ab78a0047268fb10fc8d83e6f40924897c41612
         {
             "name": "Python 디버거: 현재 파일",
             "type": "debugpy",
