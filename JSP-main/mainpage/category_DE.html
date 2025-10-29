@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>디자인 자격증 목록</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+
+<style>
+:root {
+  --main-bg: #f5f7fa;
+  --card-bg: #fff;
+  --text-main: #333;
+  --text-sub: #666;
+  --accent-color: #000000;
+  --shadow-light: rgba(0,0,0,0.06);
+  --shadow-medium: rgba(0,0,0,0.1);
+}
+
+body {
+  font-family: 'Pretendard', sans-serif;
+  background-color: var(--main-bg);
+  margin: 0;
+  padding: 20px;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.site-title {
+  font-size: 1.8em;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background: var(--accent-color);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #0056b3;
+}
+
+section {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-light);
+}
+
+h3 {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--accent-color);
+  border-left: 4px solid var(--accent-color);
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+/* 자격증 카드 레이아웃 */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.cert-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cert-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px var(--shadow-medium);
+}
+
+.cert-img {
+  width: 100%;
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+}
+
+.cert-content {
+  padding: 15px;
+  text-align: center;
+}
+
+.cert-content h4 {
+  margin: 0 0 5px;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.cert-content p {
+  margin: 0;
+  font-size: 0.9em;
+  color: var(--text-sub);
+}
+
+footer {
+  text-align: center;
+  font-size: 0.9em;
+  color: var(--text-sub);
+  padding: 20px 0;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="site-title">🎨 디자인 자격증</div>
+    <a href="mainpage.html" class="back-btn">← 메인으로 돌아가기</a>
+  </header>
+
+  <section aria-label="IT 자격증 목록">
+    <h3>정보처리 / IT 분야 자격증 목록</h3>
+    <div class="cert-grid">
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/design.png');"></div>
+        <div class="cert-content">
+          <h4>정보관리기술사</h4>
+          <p>IT 분야 최고 전문가를 인증하는 국가기술자격</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/IT.png');"></div>
+        <div class="cert-content">
+          <h4>정보기기운용기능사</h4>
+          <p>컴퓨터 하드웨어 및 네트워크 기본 운용 능력</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/IT.png');"></div>
+        <div class="cert-content">
+          <h4>정보처리기능사</h4>
+          <p>기초 프로그래밍 및 시스템 운용 능력 인증</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/IT.png');"></div>
+        <div class="cert-content">
+          <h4>정보처리기사</h4>
+          <p>소프트웨어 개발 및 데이터 관리 핵심 자격</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/IT.png');"></div>
+        <div class="cert-content">
+          <h4>정보처리산업기사</h4>
+          <p>정보시스템 구축 및 유지보수 능력 인증</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/IT.png');"></div>
+        <div class="cert-content">
+          <h4>컴퓨터활용능력</h4>
+          <p>컴퓨터를 이용한 문서 작성 및 스프레드시트 활용 능력 등을 검증하여 폭넓게 활용됨</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/IT.png');"></div>
+        <div class="cert-content">
+          <h4>네트워크 관리사</h4>
+          <p>서버 구축, 보안 설정, 네트워크 구축 및 관리에 필요한 기초 이론 및 실무 능력을 검증</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/IT.png');"></div>
+        <div class="cert-content">
+          <h4>리눅스 마스터</h4>
+          <p>리눅스 시스템의 관리 능력 및 리눅스 기반의 서버/네트워크 관리 실무 능력을 검증</p>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <footer>
+    © 2025 자격백과 | 모든 권리 보유
+  </footer>
+
+</div>
+</body>
+</html>

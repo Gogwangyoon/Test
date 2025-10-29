@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>항공 자격증 목록</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+
+<style>
+:root {
+  --main-bg: #f5f7fa;
+  --card-bg: #fff;
+  --text-main: #333;
+  --text-sub: #666;
+  --accent-color: #000000;
+  --shadow-light: rgba(0,0,0,0.06);
+  --shadow-medium: rgba(0,0,0,0.1);
+}
+
+body {
+  font-family: 'Pretendard', sans-serif;
+  background-color: var(--main-bg);
+  margin: 0;
+  padding: 20px;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.site-title {
+  font-size: 1.8em;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background: var(--accent-color);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #0056b3;
+}
+
+section {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-light);
+}
+
+h3 {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--accent-color);
+  border-left: 4px solid var(--accent-color);
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+/* 자격증 카드 레이아웃 */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.cert-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cert-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px var(--shadow-medium);
+}
+
+.cert-img {
+  width: 100%;
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+}
+
+.cert-content {
+  padding: 15px;
+  text-align: center;
+}
+
+.cert-content h4 {
+  margin: 0 0 5px;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.cert-content p {
+  margin: 0;
+  font-size: 0.9em;
+  color: var(--text-sub);
+}
+
+footer {
+  text-align: center;
+  font-size: 0.9em;
+  color: var(--text-sub);
+  padding: 20px 0;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="site-title">✈️ 항공  자격증</div>
+    <a href="mainpage.html" class="back-btn">← 메인으로 돌아가기</a>
+  </header>
+
+  <section aria-label="세무회계 자격증 목록">
+    <h3>세무회계 분야 자격증 목록</h3>
+    <div class="cert-grid">
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/aviation.png');"></div>
+        <div class="cert-content">
+          <h4>전산회계운용사</h4>
+          <p>회계시스템(ERP 등)을 활용하여 회계정보를 운용하는 능력을 평가하는 국가기술자격</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/accoyntung.png');"></div>
+        <div class="cert-content">
+          <h4>전산회계</h4>
+          <p>전산회계 프로그램을 이용한 회계 실무 능력을 평가하는 국가공인 민간자격</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/accoyntung.png');"></div>
+        <div class="cert-content">
+          <h4>세무회계</h4>
+          <p>세법 이론 및 실무에 대한 전문 지식과 활용 능력을 평가하는 필기시험 중심의 자격</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/accoyntung.png');"></div>
+        <div class="cert-content">
+          <h4>회계관리</h4>
+          <p>회계원리 및 재무회계, 세무회계 지식을 평가하는 이론 중심의 국가공인 민간자격</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/accoyntung.png');"></div>
+        <div class="cert-content">
+          <h4>재경관리사</h4>
+          <p>재무회계, 세무회계, 원가관리회계 지식과 실무 능력을 겸비한 재경전문가 자격</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/accoyntung.png');"></div>
+        <div class="cert-content">
+          <h4>회계실무(FAT)</h4>
+          <p>더존 등 전산 프로그램을 이용한 회계정보 처리 실무 능력을 평가하는 국가공인 AT 자격</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/accoyntung.png');"></div>
+        <div class="cert-content">
+          <h4>세무실무(FAT)</h4>
+          <p>더존 등 전산 프로그램을 이용한 세무정보 처리 실무 능력을 평가하는 국가공인 AT 자격</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img" style="background-image: url('./img/accoyntung.png');"></div>
+        <div class="cert-content">
+          <h4>매경TEST</h4>
+          <p>경제·경영에 대한 전반적인 지식과 응용 능력을 평가하는 국가공인 민간자격</p>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <footer>
+    © 2025 자격백과 | 모든 권리 보유
+  </footer>
+
+</div>
+</body>
+</html>
