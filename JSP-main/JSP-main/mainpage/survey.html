@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나에게 맞는 자격증 찾기</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+/* 기본 스타일 */
+:root {
+  --main-bg: #f5f7fa;
+  --card-bg: #fff;
+  --text-main: #333;
+  --text-sub: #666;
+  --accent-color: #000000;
+  --shadow-light: rgba(0,0,0,0.06);
+}
+
+body {
+  font-family: 'Pretendard', sans-serif;
+  background-color: var(--main-bg);
+  margin: 0;
+  padding: 20px;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--accent-color);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border-left: 4px solid var(--accent-color);
+  padding-left: 10px;
+}
+
+/* 카드 스타일 */
+.card-section {
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-light);
+  margin-bottom: 20px;
+}
+
+/* 최근 본 자격증 */
+.recent-certs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+}
+
+.recent-cert-item {
+  background-color: #f1f1f1;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 0.9em;
+  color: var(--text-sub);
+}
+
+/* 설문 폼 */
+.survey-form .form-group {
+  margin-bottom: 20px;
+}
+
+.survey-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+.survey-form input[type="text"],
+.survey-form select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+.survey-form select {
+  cursor: pointer;
+}
+
+.survey-form .btn-submit {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.survey-form .btn-submit:hover {
+  background: #333;
+}
+
+/* 추천 결과 */
+#recommendationResult {
+  margin-top: 30px;
+  padding: 20px;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  background-color: #e9eef5;
+  text-align: center;
+  display: none; /* 초기에는 숨김 */
+}
+
+#recommendationResult h4 {
+  font-size: 1.5em;
+  color: #444;
+}
+
+#recommendationResult .cert-name {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 10px;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>나에게 맞는 자격증 찾기 설문</h2>
+
+    <section class="card-section">
+      <h3>👀 최근 본 자격증</h3>
+      <ul class="recent-certs-list" id="recentCertsList">
+        <li class="recent-cert-item">정보처리기사</li>
+        <li class="recent-cert-item">전산회계 1급</li>
+        <li class="recent-cert-item">토익 (TOEIC)</li>
+        <li class="recent-cert-item">전산응용건축제도기능사</li>
+        <li class="recent-cert-item">생활스포츠지도사 2급</li>
+      </ul>
+    </section>
+
+    <section class="card-section">
+      <h3>✍️ 설문지 작성</h3>
+      <form class="survey-form" id="surveyForm">
+        <div class="form-group">
+          <label for="reason">자격증을 따려는 주된 이유가 무엇인가요?</label>
+          <select id="reason" name="reason" required>
+           
+            <option value="취업">취업 및 이직</option>
+            <option value="자기계발">자기계발</option>
+            <option value="학업">학점/졸업 요건</option>
+            <option value="부업">부업 및 창업</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="time">자격증 공부에 투자할 수 있는 예상 시간은?</label>
+          <select id="time" name="time" required>
+         
+            <option value="1개월">1개월 미만</option>
+            <option value="3개월">3개월</option>
+            <option value="6개월">6개월 이상</option>
+            <option value="1년">1년 이상</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="fee">응시료에 대한 부담감은?</label>
+          <select id="fee" name="fee" required>
+           
+            <option value="상관없음">상관없음</option>
+            <option value="중간">보통</option>
+            <option value="부담">부담되는 편</option>
+          </select>
+        </div>
+        
+        <button type="submit" class="btn-submit">추천받기</button>
+      </form>
+    </section>
+
+    <section class="card-section" id="recommendationResult">
+      <h3>👍 당신에게 추천하는 자격증</h3>
+      <p class="cert-name" id="recommendedCert"></p>
+      <p id="recommendationReason" style="font-size:0.95em; color:#777;"></p>
+    </section>
+  </div>
+
+  <script>
+    document.getElementById('surveyForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // 폼 제출 시 페이지가 새로고침되는 것을 방지
+
+      const reason = document.getElementById('reason').value;
+      const time = document.getElementById('time').value;
+      const fee = document.getElementById('fee').value;
+
+      let recommendedCert = '알 수 없음';
+      let recommendationReason = '입력하신 정보와 일치하는 자격증이 없습니다.';
+
+      // 간단한 조건문으로 자격증 추천 로직 구현
+      if (reason === '취업' && time === '3개월' && fee === '중간') {
+        recommendedCert = '정보처리기사';
+        recommendationReason = 'IT 분야 취업에 필수적이고, 실무에 유용한 국가기술 자격증입니다.';
+      } else if (reason === '자기계발' && time === '1개월' && fee === '부담') {
+        recommendedCert = '컴퓨터활용능력 2급';
+        recommendationReason = '단기간에 취득 가능하며, 사무 능력을 향상시키는 데 도움이 됩니다.';
+      } else if (reason === '취업' && time === '6개월' && fee === '상관없음') {
+        recommendedCert = '공인중개사';
+        recommendationReason = '부동산 전문가로 활동할 수 있는 전문직 자격증입니다. 장기적인 취업 및 창업에 유리합니다.';
+      } else if (reason === '학업' && time === '1개월' && fee === '중간') {
+        recommendedCert = 'GTQ 포토샵';
+        recommendationReason = '단기간에 취득할 수 있고, 디자인 관련 학과나 실무에 도움이 됩니다.';
+      }
+
+      // 추천 결과 표시
+      document.getElementById('recommendedCert').innerText = recommendedCert;
+      document.getElementById('recommendationReason').innerText = recommendationReason;
+      document.getElementById('recommendationResult').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
