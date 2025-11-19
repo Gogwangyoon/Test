@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>자격증 포털 (베이스)</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+/* 일반 스타일 */
+:root {
+  --main-bg: #f5f7fa;
+  --card-bg: #fff;
+  --text-main: #333;
+  --text-sub: #666;
+  --accent-color: #000000;
+  --shadow-light: rgba(0,0,0,0.06);
+  --shadow-medium: rgba(0,0,0,0.1);
+  --shadow-heavy: rgba(0,0,0,0.15);
+}
+
+body {
+  font-family: 'Pretendard', sans-serif;
+  background-color: var(--main-bg);
+  margin: 0;
+  padding: 20px;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section, article {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-light);
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--accent-color);
+  border-left: 4px solid var(--accent-color);
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+/* 헤더 */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.site-title {
+  font-size: 1.8em;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: var(--card-bg);
+  padding: 8px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  max-width: 400px;
+  flex-grow: 1;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 1em;
+}
+
+/* 카테고리 */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 20px;
+  padding: 10px 0;
+}
+
+.cat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cat:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px var(--shadow-light);
+}
+
+.cat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 8px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+  box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+.cat-name {
+  font-size: 0.9em;
+  color: var(--text-sub);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* 갤러리 */
+.gallery-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.cert-item {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.cert-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px var(--shadow-medium);
+}
+
+.cert-img {
+  width: 100%;
+  padding-top: 60%;
+  background-size: cover;
+  background-position: center;
+}
+
+.cert-info {
+  padding: 15px;
+  text-align: center;
+}
+
+.cert-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 1.2em;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.cert-info p {
+  margin: 0;
+  font-size: 0.9em;
+  color: var(--text-sub);
+}
+
+/* 정보 박스 */
+
+.info-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-light);
+}
+
+.info-card h3 {
+  margin: 0 0 10px 0;
+  text-align: left;
+  font-size: 1.4em;
+  color: var(--accent-color);
+  border-left: 4px solid var(--accent-color);
+  padding-left: 10px;
+}
+
+.info-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-card li {
+  padding: 8px 0;
+  border-bottom: 1px dashed #eee;
+  color: var(--text-sub);
+  font-size: 1em;
+  cursor: pointer; /* 클릭 가능한 항목임을 표시 */
+}
+
+.info-card li:last-child {
+  border-bottom: none;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background: var(--accent-color);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  border: none;
+}
+
+.btn:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 10px;
+  }
+  header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .site-title {
+    text-align: center;
+  }
+  .search-box {
+    width: 100%;
+  }
+  .category-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 15px;
+  }
+  .cert-item {
+    min-width: 180px;
+  }
+}
+
+/* ... 기존의 모든 CSS 코드 ... */
+
+/* 갤러리 섹션 다음의 첫 번째 article에 상단 마진 추가 */
+.gallery-container + article {
+    margin-top: 40px; /* 기존 20px 외에 20px를 더해 총 40px 간격 */
+}
+
+/* 이후의 모든 article에도 상단 마진을 통일 */
+article + article {
+    margin-top: 40px;
+}
+
+/* 푸터 */
+.site-footer {
+  background-color: #f8f8f8; /* 배경색 조정 */
+  border-top: 1px solid #eee; /* 상단 구분선 */
+  padding: 30px 20px;
+  font-size: 0.85em;
+  color: #666;
+  line-height: 1.8;
+}
+
+.footer-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap; /* 작은 화면에서 요소들이 줄바꿈되도록 */
+  align-items: flex-start; /* 로고와 내용이 상단 정렬되도록 */
+  gap: 5px; /* 요소들 간의 간격 */
+}
+
+.footer-logo img {
+  width: 400px; /* 로고 크기 조정 */
+  margin-right: 20px;
+  flex-shrink: 0; /* 로고가 줄어들지 않도록 */
+}
+
+.footer-content {
+  flex-grow: 1; /* 남은 공간을 채우도록 */
+  min-width: 300px; /* 내용이 너무 작아지지 않도록 최소 너비 설정 */
+}
+
+.footer-content p {
+  margin: 0;
+  padding: 2px 0;
+}
+
+.footer-content a {
+  color: #666;
+  text-decoration: none;
+}
+
+.footer-content a:hover {
+  text-decoration: underline;
+}
+
+.footer-sns {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-shrink: 0; /* SNS 아이콘이 줄어들지 않도록 */
+}
+
+.footer-sns img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%; /* 원형 아이콘 */
+  transition: transform 0.2s ease;
+}
+
+.footer-sns img:hover {
+  transform: translateY(-2px);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .footer-wrap {
+    flex-direction: column; /* 세로로 정렬 */
+    align-items: center; /* 가운데 정렬 */
+    text-align: center;
+  }
+  .footer-logo {
+    margin-bottom: 45px;
+  }
+  .footer-logo img {
+    margin-right: 0;
+  }
+  .footer-sns {
+    margin-top: 15px;
+    justify-content: center; /* SNS 아이콘 가운데 정렬 */
+  }
+}
+</style>
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header>
+      <div class="site-title">자격백과 🎓</div>
+      <div class="search-box" role="search" aria-label="사이트 검색">
+        <input type="search" placeholder="궁금한 자격증을 검색해보세요!" />
+      </div>
+    </header>
+
+    <section aria-label="자격증 카테고리">
+      <h3>카테고리별 자격증</h3>
+      <div class="category-grid" id="categoryGrid">
+        <div class="cat" tabindex="0" title="IT/정보처리">
+          <div class="cat-icon" style="background-image:url('./img/IT.png');">IT</div>
+          <div class="cat-name">정보처리</div>
+        </div>
+        
+        <div class="cat" tabindex="0" title="회계/세무">
+          <div class="cat-icon" style="background-image: url('./img/accoyntung.png');">회계</div>
+          <div class="cat-name">세무</div>
+        </div>
+        <div class="cat" tabindex="0" title="어학">
+          <div class="cat-icon" style="background-image: url('./img/language.png');">어학</div>
+          <div class="cat-name">외국어</div>
+        </div>
+        <div class="cat" tabindex="0" title="공무원/교원">
+          <div class="cat-icon" style="background-image: url('./img/public official.png');">공무원</div>
+          <div class="cat-name">교원</div>
+        </div>
+        <div class="cat" tabindex="0" title="의료/간호">
+          <div class="cat-icon" style="background-image: url('./img/medical treatment.png');">의료</div>
+          <div class="cat-name">간호</div>
+        </div>
+        <div class="cat" tabindex="0" title="기술/기능사">
+          <div class="cat-icon" style="background-image: url('./img/craftsman.png');">기능</div>
+          <div class="cat-name">기술사</div>
+        </div>
+        <div class="cat" tabindex="0" title="디자인/예술">
+          <div class="cat-icon" style="background-image: url('./img/design.png');">디자인</div>
+          <div class="cat-name">예술</div>
+        </div>
+        <div class="cat" tabindex="0" title="운전/운송">
+          <div class="cat-icon" style="background-image: url('./img/taxi.png');">운전</div>
+          <div class="cat-name">운송</div>
+        </div>
+        <div class="cat" tabindex="0" title="서비스/외식">
+          <div class="cat-icon" style="background-image: url('./img/restaurant.png');">서비스</div>
+          <div class="cat-name">외식</div>
+        </div>
+        <div class="cat" tabindex="0" title="교육/유아">
+          <div class="cat-icon" style="background-image: url('./img/education.png');">교육</div>
+          <div class="cat-name">유아</div>
+        </div>
+        <div class="cat" tabindex="0" title="건설/안전">
+          <div class="cat-icon" style="background-image: url('./img/erection.png');">건설</div>
+          <div class="cat-name">안전</div>
+        </div>
+        <div class="cat" tabindex="0" title="산업/제조">
+          <div class="cat-icon" style="background-image: url('./img/technician.png');">제조</div>
+          <div class="cat-name">산업</div>
+        </div>
+        <div class="cat" tabindex="0" title="법률/노무">
+          <div class="cat-icon" style="background-image: url('./img/low.png');">법률</div>
+          <div class="cat-name">노무</div>
+        </div>
+        <div class="cat" tabindex="0" title="환경/에너지">
+          <div class="cat-icon" style="background-image: url('./img/environment.png');">환경</div>
+          <div class="cat-name">에너지</div>
+        </div>
+        <div class="cat" tabindex="0" title="스포츠/레저">
+          <div class="cat-icon" style="background-image: url('./img/sports.png');">스포츠</div>
+          <div class="cat-name">레저</div>
+        </div>
+        <div class="cat" tabindex="0" title="항공/해양">
+          <div class="cat-icon" style="background-image: url('./img/aviation.png');">항공</div>
+          <div class="cat-name">해양</div>
+        </div>
+        <div class="cat" tabindex="0" title="문화/관광">
+          <div class="cat-icon" style="background-image: url('./img/cultural.png');">문화</div>
+          <div class="cat-name">관광</div>
+        </div>
+        <div class="cat" tabindex="0" title="방송/미디어">
+          <div class="cat-icon" style="background-image: url('./img/broadcast.png');">방송</div>
+          <div class="cat-name">미디어</div>
+        </div>
+        <div class="cat" tabindex="0" title="반려동물">
+          <div class="cat-icon" style="background-image: url('./img/dog.png');">반려</div>
+          <div class="cat-name">동물</div>
+        </div>
+      </div>
+    </section>
+
+  <h3 id="popularTitle">1. 인기 / 추천 자격증</h3>
+<div class="gallery-container">
+  <div class="cert-item">
+    <div class="cert-img" style="background-image: url('./img/IT.png');"></div>
+    <div class="cert-info">
+      <h4>정보처리기사</h4>
+      <p>IT 필수 자격증, 취업과 실무에 모두 유용!</p>
+    </div>
+  </div>
+  <div class="cert-item">
+    <div class="cert-img" style="background-image: url('./img/accoyntung.png');"></div>
+    <div class="cert-info">
+      <h4>전산회계 1급</h4>
+      <p>회계 실무 능력을 증명하는 국가공인 자격증</p>
+    </div>
+  </div>
+  <div class="cert-item">
+    <div class="cert-img" style="background-image: url('./img/erection.png');"></div>
+    <div class="cert-info">
+      <h4>전산응용건축제도기능사</h4>
+      <p>건축/인테리어 분야의 기본, CAD 전문가로!</p>
+    </div>
+  </div>
+  <div class="cert-item">
+    <div class="cert-img" style="background-image: url('./img/language.png');"></div>
+    <div class="cert-info">
+      <h4>토익 (TOEIC)</h4>
+      <p>취업의 문을 여는 대표적인 어학 시험</p>
+    </div>
+  </div>
+  <div class="cert-item">
+    <div class="cert-img" style="background-image: url('./img/allright24.1.png');"></div>
+    <div class="cert-info">
+      <h4>생활스포츠지도사 2급 </h4>
+      <p>생활체육부터 전문체육까지!</p>
+    </div>
+  </div>
+</div>
+
+
+<article class="info-card" aria-labelledby="personalTitle">
+  <h3 id="personalTitle">2. 나에게 맞는 자격증 찾기 ✨</h3>
+  <div class="personal">
+    “나에게 맞는 자격증 찾기” — 간단 설문으로 추천 자격증 제공<br/>
+    <div class="btn" role="button" tabindex="0" aria-pressed="false" id="startSurveyBtn">간단 설문 시작</div>
+    <p style="margin-top:10px; color:#555">북마크/즐겨찾기한 자격증을 모아보세요</p>
+  </div>
+  
+  
+  <div id="surveyTab" style="display:none; margin-top: 20px;">
+    <h4>내가 봤던 자격증 5개 👀</h4>
+    <div id="recentlyViewedCerts">
+      </div>
+    
+    <div style="margin-top:20px;">
+      <h4>나에게 맞는 자격증은? (설문)</h4>
+      <p style="color:#666;">관심 있는 분야를 선택해주세요.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:10px;">
+        <div class="btn survey-btn">IT/정보처리</div>
+        <div class="btn survey-btn">회계/세무</div>
+        <div class="btn survey-btn">운전/운송</div>
+        <div class="btn survey-btn">건설/안전</div>
+        <div class="btn survey-btn">교육/유아</div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+    <article class="info-card" aria-labelledby="certificateTitle">
+  <h3 id="certificateTitle">3. 자격증 발급(클릭) 📝</h3>
+  <ul id="certificateInfoList">
+    <li class="clickable">자격증 신청 방법 및 절차 (온라인/방문)</li>
+    <li class="clickable">자격증 재발급 신청 가이드</li>
+    <li class="clickable">자격증 취득 후 유의사항</li>
+  </ul>
+</article>
+<article class="info-card" aria-labelledby="quizTitle">
+  <h3 id="quizTitle">4. 나는 어떤 준비생일까? 🔮</h3>
+  <div class="quiz-container">
+    <p>당신은 자격증 준비를 주로 언제 시작하나요?</p>
+    <div class="quiz-buttons">
+      <button class="btn quiz-btn" id="flashBtn">벼락치기형 (시험 3일 전)</button>
+      <button class="btn quiz-btn" id="planBtn">계획형 (시험 6개월 전)</button>
+      <button class="btn quiz-btn" id="leisureBtn">여유만만형 (시험은 뭐...)</button>
+    </div>
+    <div id="quizResult" style="display: none; margin-top: 20px; text-align: center;">
+      <h4>당신은 <span id="quizType"></span>입니다!</h4>
+      <p id="quizRecommendation"></p>
+    </div>
+  </div>
+</article>
+<div class="top-space"></div>
+
+    <footer class="site-footer">
+      <div class="footer-wrap">
+        <div class="footer-logo">
+          <img src="./img/logo.png" alt="자격백고 로고">
+        </div>
+        <div class="footer-content">
+          <p>상호명 및 호스팅제공자: (주)자격백과 | 대표이사 유한대학교  | </p>
+          <p>경기도 부천시 경인로 590</p>
+          <p>(주) 자격백과. All rights reserved.</p>
+        </div>
+        <div class="footer-sns">
+          <a href="#" target="_blank" title="유튜브"><img src="./img/youtube.png" alt="YouTube"></a>
+          <a href="#" target="_blank" title="블로그"><img src="./img/blog.png" alt="Blog"></a>
+          <a href="#" target="_blank" title="인스타그램"><img src="./img/instagram.jpg" alt="Instagram"></a>
+        
+        </div>
+      </div>
+    </footer>
+    </div> <script>
+  document.getElementById('categoryGrid').addEventListener('click', function(e){
+    const t = e.target.closest('.cat');
+    if(t){
+      const name = t.querySelector('.cat-name').innerText;
+      alert(name + ' 카테고리를 선택했습니다. (연결 구현 필요)');
+    }
+  });
+</script>
+</body>
+</html>
+    
+<script>
+  document.getElementById('categoryGrid').addEventListener('click', function(e){
+    const t = e.target.closest('.cat');
+    if(t){
+      const name = t.querySelector('.cat-name').innerText;
+      alert(name + ' 카테고리를 선택했습니다. (연결 구현 필요)');
+    }
+  });
+  
+  // '간단 설문 시작' 버튼 클릭 시 survey.html로 이동
+  document.getElementById('startSurveyBtn').addEventListener('click', function() {
+    window.location.href = 'survey.html';
+  });
+  
+  // '자격증 발급' 탭 클릭 시 certification-guide.html로 이동
+  document.getElementById('certificateInfoList').addEventListener('click', function(e) {
+    const clickedItem = e.target.closest('li');
+    if (!clickedItem) return; // li가 아닌 다른 곳을 클릭했을 때 함수 종료
+
+    const text = clickedItem.innerText;
+    
+    if (text.includes('자격증 신청 방법')) {
+      window.location.href = 'certification-guide.html';
+    } else if (text.includes('자격증 재발급')) {
+      window.location.href = 'reissuance-guide.html';
+    } else if (text.includes('자격증 취득 후 유의사항')) {
+      window.location.href = 'post-acquisition-guide.html';
+    }
+  });
+  document.getElementById('flashBtn').addEventListener('click', function() {
+    document.getElementById('quizType').innerText = '단기 집중력 만렙! 벼락치기형';
+    document.getElementById('quizRecommendation').innerText = '단기간에 합격할 수 있는 ITQ, 컴퓨터활용능력 2급 같은 자격증에 도전해보세요!';
+    document.getElementById('quizResult').style.display = 'block';
+});
+
+document.getElementById('planBtn').addEventListener('click', function() {
+    document.getElementById('quizType').innerText = '꾸준함의 아이콘! 계획형';
+    document.getElementById('quizRecommendation').innerText = '공인중개사, 정보처리기사처럼 장기적으로 꾸준히 공부하는 자격증에 적합합니다.';
+    document.getElementById('quizResult').style.display = 'block';
+});
+
+document.getElementById('leisureBtn').addEventListener('click', function() {
+    document.getElementById('quizType').innerText = '놀면서 따는 자격증? 취미형';
+    document.getElementById('quizRecommendation').innerText = '바리스타 2급, 제과제빵 기능사처럼 즐기면서 배울 수 있는 자격증을 추천합니다!';
+    document.getElementById('quizResult').style.display = 'block';
+});
+
+
+</script>
+</body>
+</html>
