@@ -6,7 +6,7 @@ import urllib.parse
 # --- 1. 설정 및 상수 정의 ---
 # TODO: 여기에 본인의 Riot Games API Key를 입력하세요.
 # API Key는 24시간마다 만료되므로 주기적으로 갱신해야 합니다.
-RIOT_API_KEY = "RGAPI-965a662c-1b5b-449b-88e0-e70824217786"
+RIOT_API_KEY = "RGAPI-bc433a1c-92ee-49af-97d1-b6886b626473"
 
 # API 리전 설정
 # KR (한국 서버)
